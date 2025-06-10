@@ -1,0 +1,8 @@
+
+	--------------Employee salary slip-------------
+	ID           : 1
+	Name         : kunal
+	DA (%)      :10.000000
+	HRA (%)     :15.000000
+	TAX (%)     :5.000000
+	total salary :60000.00
