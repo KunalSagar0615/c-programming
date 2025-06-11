@@ -7,3 +7,4 @@ int main()
     (a>b)?printf("a is max"):printf("b is max");
     return 0;
 }
+
