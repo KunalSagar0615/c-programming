@@ -22,12 +22,12 @@ int main()
     printf("\nenter tax =");
     scanf("%f",&tax);
     sal=bs+((bs*(hra+da-tax))/100);
-    fprintf(fp,"\n\ttotal salary :%.2f",sal);
-    fprintf(fp,"\n\t--------------Employee salary slip-------------");
-    fprintf(fp,"\n\tID           : %d",eid);
-    fprintf(fp,"\n\tName         : %s",ename);
-    fprintf(fp,"\n\tDA (%%)      :%f",da);
-    fprintf(fp,"\n\tHRA (%%)     :%f",hra);
-    fprintf(fp,"\n\tTAX (%%)     :%f",tax);
+    fprintf(fp,"\n\t\ttotal salary :%.2f",sal);
+    fprintf(fp,"\n\t\t--------------Employee salary slip-------------");
+    fprintf(fp,"\n\t\tID           : %d",eid);
+    fprintf(fp,"\n\t\tName         : %s",ename);
+    fprintf(fp,"\n\t\tDA (%%)      :%f",da);
+    fprintf(fp,"\n\t\tHRA (%%)     :%f",hra);
+    fprintf(fp,"\n\t\tTAX (%%)     :%f",tax);
     return 0;
 }
