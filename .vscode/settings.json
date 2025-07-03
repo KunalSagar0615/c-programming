@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "min3": "c"
+        "min3": "c",
+        "BUBBLESORT.C": "cpp"
     }
 }
