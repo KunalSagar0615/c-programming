@@ -72,42 +72,73 @@ void Insert(node **r,int data)
 void DelFirstNode(node **head)
 {
     if((*head)==NULL)
-        printf("\n node is empty !!");
+        printf("\nNode is empty !!");
     
     node *temp=*head;
     (*head)=(*head)->next;
     free(temp);
-    printf("\nFirst Node is Deleted");
+    printf("\nNode is Deleted");
 }
+
+// void DelLastNode(node **head)
+// {
+//     if((*head)==NULL)
+//         printf("\nList is already empty ");
+    
+//     if((*head)->next==NULL)
+//         {
+//             free(*head);
+//             (*head)=NULL;
+//             printf("\nThe only node is deleted");
+//         }
+    
+//     node *temp=*head;
+//     while(temp->next->next != NULL)
+//         temp=temp->next;
+
+//     free(temp->next);
+//     temp->next=NULL;
+//     printf("\nLast node is Deleted");
+// }
 
 void DelLastNode(node **head)
 {
-    if((*head)==NULL)
-        printf("\nList is already empty ");
-    
-    if((*head)->next==NULL)
-        {
-            free(*head);
-            (*head)=NULL;
-            printf("\nThe only node is deleted");
-        }
-    
-    node *temp=*head;
-    while(temp->next->next != NULL)
-        temp=temp->next;
+    if(head==NULL)
+        printf("\nNode is empty");
 
-    free(temp->next);
-    temp->next=NULL;
-    printf("\nLast node is Deleted");
+    else if((*head)->next==NULL){
+        DelFirstNode(head);
+    }
+
+    else{
+        node *temp=(*head);
+        while(temp->next->next!=NULL)
+            temp=temp->next;
+        temp->next=NULL;
+    }
+}
+
+void InsertInBetween(node *head,int data,int pos)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode->data=data;
+    node *temp=head;
+
+    int i;
+    for(i=2;i<pos;i++)
+        temp=temp->next;
+    
+    newnode->next=temp->next;
+    temp->next=newnode;    
 }
 
 int main()
 {
-    int data,ch,key;
+    int data,ch,key,pos;
     node *head = NULL;
     while(1)
     {
-    printf("\n1.Append \n2.Display \n3.count \n4.Search \n5.Insert At First \n6.Delete First Node \n7.Delete Last node \n10.Exit \nEnter a choice =");
+    printf("\n1.Append \n2.Display \n3.count \n4.Search \n5.Insert At First \n6.Delete First Node \n7.Delete Last node  \n8.Insert In Between \n10.Exit \nEnter a choice =");
     scanf("%d",&ch);
     switch (ch)
     {
@@ -143,13 +174,31 @@ int main()
     case 7:DelLastNode(&head);
         break;
 
+    case 8:
+        printf("\nEnter Positon : ");
+        scanf("%d",&pos);
+        printf("\nEnter Data : ");
+        scanf("%d",&data);
+
+        if(pos == 1)
+            Insert(&head,data);
+        
+        else if(pos == Count(head)+1)
+            Append(&head,data);
+
+        else if(pos > 1 && pos <= Count(head)+1)
+            InsertInBetween(head,data,pos);
+        
+        else 
+            printf("\nInvalid Position ");
+        break;
+
     case 10:return 0;
         break;
 
     default:printf("\nINVALID CHOICE ");
         break;
     }
-
     }
     return 0;
 }
