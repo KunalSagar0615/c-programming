@@ -132,13 +132,46 @@ void InsertInBetween(node *head,int data,int pos)
     temp->next=newnode;    
 }
 
+void DelInBetween(node *head,int pos)
+{
+    node *temp=head;
+    int i;
+    for(i=2;i<pos;i++)
+        temp=temp->next;
+    
+    node *del=temp->next;
+    temp->next=del->next;
+    printf("\nNode is deleted\n");
+}
+
+void DelByValue(node *head,int data)
+{
+    node *temp= head;
+    node *previous=NULL;
+    while(temp!=NULL && temp->data!=data)
+    {
+        previous=temp;
+        temp=temp->next;
+    }
+
+    if(temp==NULL)
+    {
+        printf("\nValue not found\n");
+        return;
+    }
+
+    previous->next=temp->next;
+    printf("\nValue deleted\n");
+
+}
+
 int main()
 {
     int data,ch,key,pos;
     node *head = NULL;
     while(1)
     {
-    printf("\n1.Append \n2.Display \n3.count \n4.Search \n5.Insert At First \n6.Delete First Node \n7.Delete Last node  \n8.Insert In Between \n10.Exit \nEnter a choice =");
+    printf("\n1.Append \n2.Display \n3.count \n4.Search \n5.Insert At First \n6.Delete First Node \n7.Delete Last node  \n8.Insert In Between \n9.Delete In Between \n10.Delete By value \n11.Exit \nEnter a choice =");
     scanf("%d",&ch);
     switch (ch)
     {
@@ -193,7 +226,36 @@ int main()
             printf("\nInvalid Position ");
         break;
 
-    case 10:return 0;
+    case 9:
+        printf("\nEnter Position you want to delte  : ");
+        scanf("%d",&pos);
+
+        if(pos==1)
+            DelFirstNode(&head);
+
+        else if(pos==Count(head))
+            DelLastNode(&head);
+        
+        else if(pos>1 && pos<Count(head))
+            DelInBetween(head,pos);
+        
+        else 
+            printf("\n Invalid Position");
+
+        break;
+
+    case 10:
+        printf("\nEnter value which you want to delte : ");
+        scanf("%d",&data);
+
+        if(head->data==data)
+            DelFirstNode(&head);
+            
+        else
+            DelByValue(head,data);
+        break;
+
+    case 11:return 0;
         break;
 
     default:printf("\nINVALID CHOICE ");
