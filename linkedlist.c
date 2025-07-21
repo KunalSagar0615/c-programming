@@ -248,7 +248,10 @@ int main()
         printf("\nEnter value which you want to delte : ");
         scanf("%d",&data);
 
-        if(head->data==data)
+        if (head==NULL)
+                printf("\nHead is empty please enter the data "); 
+        
+        else if(head->data==data)
             DelFirstNode(&head);
             
         else
