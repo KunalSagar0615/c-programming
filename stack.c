@@ -88,7 +88,10 @@ int main()
         break;
     
     case 5:
-        printf("\nletest element is %d",peek(s));
+        if(isEmpty(s))
+            printf("\nStack is empty");
+        else 
+            printf("\nletest element is %d",peek(s));
         break;
 
     case 6:
