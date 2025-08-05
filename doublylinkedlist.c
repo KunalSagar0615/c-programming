@@ -47,13 +47,13 @@ void display(Node *head)
     }
 }
 
-void count(Node *head)
+int count(Node *head)
 {
     int cnt=0;
     if(head== NULL)
     {
     printf("\nDLL is empty \n");
-    return;
+    return 0;
     }
 
     while(head!= NULL)
@@ -61,7 +61,7 @@ void count(Node *head)
         cnt ++;
         head = head -> next;
     }  
-    printf("\nCount is %d\n",cnt);
+    return cnt;
 }
 
 int search(Node *head,int data)
@@ -74,6 +74,87 @@ int search(Node *head,int data)
             head = head -> next;
         }
     return 0;
+}
+
+void InsertFirst(Node **r , int data)
+{
+    Node *newNode = createNode(data);
+
+    if((*r)==NULL)
+        (*r)=newNode;
+
+    else{
+       newNode->next=(*r);
+       (*r)->pre=newNode;
+       (*r)=newNode;
+    }
+}
+
+void deleteFirst(Node **r)
+{
+    if((*r)->next==NULL)
+        (*r)=NULL;
+    
+    else{
+        Node *del=(*r);
+        (*r)=(*r)->next;
+        del->next = (*r)->pre = NULL;
+        free(del);
+    }
+}
+
+void deleteLast(Node **r)
+{
+   if((*r)->next==NULL)
+        (*r)=NULL;
+    else
+    {
+      Node *temp=(*r);
+      while (temp->next->next!=NULL)
+        temp=temp->next;
+      temp->next->pre=NULL;
+      temp->next=NULL;
+}
+}
+
+void insertInBetween(Node *head,int data,int pos)
+{
+    Node *newNode=createNode(data);
+    int i;
+    Node *temp=head;
+    for(i=2;i<pos;i++)
+    temp=temp->next;
+
+    newNode->next=temp->next;
+    temp->next->pre=newNode;
+    newNode->pre=temp;
+    temp->next=newNode;
+}
+
+void deleteByValue(Node *head,int data)
+{
+    Node *temp=head;
+    while(temp->next!=NULL)
+    {
+        if(temp->next->data==data)
+        {
+            Node *del=temp->next;
+            temp->next=del->next;
+            if(del->next!=NULL)
+            del->next->pre=temp;
+            del->next=del->pre=NULL;
+            printf("\n4");
+            free(del);
+            return;
+        }
+        temp=temp->next;
+    }
+}
+
+void delByPositon(Node *head)
+{
+    Node *temp =head;
+    
 }
 
 int main()
@@ -99,21 +180,77 @@ int main()
                 break;
 
             case 3:
-                count(head);
+                printf("\nCount is %d ",count(head));
                 break;
             
             case 4:
-            if(head==NULL)
-            {
-                printf("\nNode is empty ");
-                continue;
-            }
+                if(head==NULL)
+                {
+                    printf("\nNode is empty ");
+                    continue;
+                }
                 printf("\nEnter data to search : ");
                 scanf("%d",&data);
                 if(search(head,data))
                     printf("\nData Found \n");
                 else 
                     printf("\nData NOt Found \n ");
+                break;
+
+            case 5:
+                printf("\nEnter  data = ");
+                scanf("%d",&data);
+                InsertFirst(&head,data);
+                break;
+
+            case 6:
+                if(head==NULL)
+                {
+                    printf("\n LL is empty");
+                    continue;
+                }
+                deleteFirst(&head);
+                break;
+
+            case 7:
+            deleteLast(&head);
+            break;
+
+            case 8:
+            printf("enter a pos:");
+            scanf("%d",&pos);
+            printf("enter data:");
+            scanf("%d",&data);
+            if(pos==1)
+            InsertFirst(&head,data);
+            else if(pos== count(head)+1)
+            append(&head,data);
+            else if(pos>1 && pos <= count(head))
+            insertInBetween(head,data,pos);
+            else
+            printf("INVALID POSITION!!!!");
+            break;
+
+            case 9:
+            printf("enter data:");
+            scanf("%d",&data);
+            if(head->data==data)
+            deleteFirst(&head);
+            else
+            deleteByValue(head,data);
+            break;
+
+            case 10 :
+                printf("\nEnter pos :");
+                scanf("%d",&pos);
+                if(pos==head)
+                    deleteFirst(&head);
+                else if(pos == count(head))
+                    deleteLast(head);
+                else if(pos > head && pos < count(head))
+                    delByPositon(head);
+                else 
+                    printf("\nInvalid position");
                 break;
 
             case 11 :
